@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bouns_utils2.c                                     :+:      :+:    :+:   */
+/*   bonus_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fasharif <fasharif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -15,18 +15,21 @@
 int	not_long(char *str)
 {
 	long long	nb;
-	long long	nb_max;
-	long long	nb_min;
+	int			i;
 
-	nb_max = INT32_MAX;
-	nb_min = INT32_MIN;
-	nb = ft_atoi(str);
-	if (ft_nbrlen(nb) == ft_strlen(str))
+	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (str[i] == '\0')
+		return (0);
+	while (str[i])
 	{
-		if (nb >= nb_min && nb <= nb_max)
-			return (1);
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
 	}
-	return (0);
+	nb = ft_atoi(str);
+	return (nb >= INT32_MIN && nb <= INT32_MAX);
 }
 
 int	ft_strlen(char *p)
@@ -48,34 +51,4 @@ void	ft_putstr(char *s)
 	i = 0;
 	while (s[i])
 		write(1, &s[i++], 1);
-}
-
-int	ft_nbrlen(long long nb)
-{
-	int	len;
-
-	len = 0;
-	if (nb == 0)
-		return (1);
-	if (nb < 0)
-		len++;
-	while (nb)
-	{
-		nb /= 10;
-		len++;
-	}
-	return (len);
-}
-
-void	if_av_has_alpha(char **av)
-{
-	int	i;
-
-	i = 1;
-	while (av[i])
-	{
-		if (has_alpha_2(av[i]))
-			my_exit("Error\n");
-		i++;
-	}
 }

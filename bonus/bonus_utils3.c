@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bouns_utils3.c                                     :+:      :+:    :+:   */
+/*   bonus_utils3.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fasharif <fasharif@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,14 +12,14 @@
 
 #include "push_swap_bonus.h"
 
-void	inverse_tab(t_node *node, int ac)
+void	inverse_tab(t_node *node, int count)
 {
 	int	i;
 	int	j;
 	int	tmp;
 
 	i = 0;
-	j = ac - 2;
+	j = count - 1;
 	while (i < j)
 	{
 		tmp = node->a[i];
@@ -28,29 +28,6 @@ void	inverse_tab(t_node *node, int ac)
 		i++;
 		j--;
 	}
-}
-
-int	has_alpha_2(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (!str)
-		return (0);
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-		|| str[i] == '\v' || str[i] == '\f' || str[i] == '\r')
-		i++;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	if (str[i] == '\0')
-		return (1);
-	while (str[i])
-	{
-		if (str[i] < '0' || str[i] > '9')
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 int	ft_strcmp(char *s1, char *s2)
@@ -83,22 +60,23 @@ long long	ft_atoi(char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		r = (r * 10) + ((long long)str[i] - 48);
+		if (r <= 2147483648LL)
+			r = (r * 10) + ((long long)str[i] - 48);
 		i++;
 	}
 	return (r * k);
 }
 
-void	if_has_deplcate(int *tmp, int ac)
+void	if_has_deplcate(int *tmp, int count)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < ac - 2)
+	while (i < count - 1)
 	{
 		j = i + 1;
-		while (j < ac - 1)
+		while (j < count)
 		{
 			if (tmp[i] == tmp[j])
 				my_exit("Error\n");
