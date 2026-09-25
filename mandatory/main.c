@@ -14,8 +14,6 @@
 
 void	quit(t_stab *va, int c, char **v)
 {
-	if (c == 1 || c == 5)
-		ft_putstr("Error\n");
 	if (c != 2 && c != 5)
 	{
 		free(va->tab_a);
@@ -23,7 +21,12 @@ void	quit(t_stab *va, int c, char **v)
 		if (v)
 			free(v);
 	}
-	exit (0);
+	if (c == 1 || c == 5)
+	{
+		write(2, "Error\n", 6);
+		exit(1);
+	}
+	exit(0);
 }
 
 void	param_to_var(t_stab *var, char **v, int c)
@@ -86,6 +89,8 @@ int	main(int c, char **v)
 	char	**tmp;
 
 	tmp = NULL;
+	var.tab_a = NULL;
+	var.tab_b = NULL;
 	qu(c);
 	tmp = parc(v, tmp, &c);
 	if (check_arg(tmp) == 0)

@@ -17,7 +17,7 @@ int	check_arg(char **v)
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
 	j = 0;
 	if (!v || !*v)
 		return (0);

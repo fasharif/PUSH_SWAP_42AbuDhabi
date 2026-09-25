@@ -69,7 +69,8 @@ long long	ft_atoi(char *str, t_stab *var, char **v)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		r = (r * 10) + ((long long)str[i] - 48);
+		if (r <= 2147483648LL)
+			r = (r * 10) + ((long long)str[i] - 48);
 		i++;
 	}
 	return (r * k);
