@@ -14,13 +14,13 @@ NAME = push_swap
 
 NAME_B = checker
 
-src = mondatory/utils.c mondatory/sort_fct_r.c mondatory/sort_fct.c\
-		mondatory/main.c mondatory/check_arg.c mondatory/index_pushb.c\
-		mondatory/sort_small.c mondatory/util_2.c mondatory/utils_3.c
+src = mandatory/utils.c mandatory/sort_fct_r.c mandatory/sort_fct.c\
+		mandatory/main.c mandatory/check_arg.c mandatory/index_pushb.c\
+		mandatory/sort_small.c mandatory/util_2.c mandatory/utils_3.c
 
-src_b = bonus/bouns_sort1.c bonus/get_next_line.c bonus/bouns_sort2.c\
-		bonus/bouns_sort3.c bonus/bouns_utils.c  bonus/bouns_utils2.c\
-		bonus/bouns_utils3.c bonus/bouns_utils4.c bonus/split.c
+src_b = bonus/bonus_sort1.c bonus/get_next_line.c bonus/bonus_sort2.c\
+		bonus/bonus_sort3.c bonus/bonus_utils.c  bonus/bonus_utils2.c\
+		bonus/bonus_utils3.c bonus/bonus_utils4.c bonus/split.c
 
 obj = $(src:.c=.o)
 
@@ -30,7 +30,7 @@ flags = -Wall -Wextra -Werror
 
 all: $(NAME)
 
-$(NAME): $(src) $(obj) mondatory/push_swap.h
+$(NAME): $(src) $(obj) mandatory/push_swap.h
 	@gcc $(flags) $(src) -o $(NAME)
 	@echo ------Compiled Mondatory part-------
 
