@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Build and test (${{ matrix.compiler }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [gcc, clang]
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Build push_swap and checker with warnings as errors
+        run: make CC=${{ matrix.compiler }} all bonus
+
+      - name: Tests
+        run: python3 tests/test_push_swap.py
+
+  sanitizers:
+    name: AddressSanitizer and UBSan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      # Recent kernels use more address-space randomisation than older sanitizer runtimes expect.
+      - name: Reduce ASLR entropy for the sanitizer runtime
+        run: sudo sysctl vm.mmap_rnd_bits=28
+
+      - name: Build with sanitizers
+        run: >-
+          make all bonus
+          CFLAGS="-Wall -Wextra -Werror -g -fsanitize=address,undefined -fno-sanitize-recover=all"
+          LDFLAGS="-fsanitize=address,undefined"
+
+      - name: Tests under sanitizers
+        env:
+          # This job looks for memory errors such as overflows; it does not check for leaks.
+          ASAN_OPTIONS: detect_leaks=0
+        run: python3 tests/test_push_swap.py
