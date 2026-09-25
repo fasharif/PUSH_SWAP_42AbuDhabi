@@ -18,7 +18,7 @@ src = mandatory/utils.c mandatory/sort_fct_r.c mandatory/sort_fct.c\
 		mandatory/main.c mandatory/check_arg.c mandatory/index_pushb.c\
 		mandatory/sort_small.c mandatory/util_2.c mandatory/utils_3.c
 
-src_b = bonus/bonus_sort1.c bonus/get_next_line.c bonus/bonus_sort2.c\
+src_b = bonus/bonus_sort1.c bonus/checker.c bonus/bonus_sort2.c\
 		bonus/bonus_sort3.c bonus/bonus_utils.c  bonus/bonus_utils2.c\
 		bonus/bonus_utils3.c bonus/bonus_utils4.c bonus/split.c
 

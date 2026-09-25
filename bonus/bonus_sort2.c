@@ -16,6 +16,8 @@ void	ra(int *a, int top_a)
 {
 	int	p;
 
+	if (top_a < 1)
+		return ;
 	p = a[top_a];
 	while (0 < top_a)
 	{
@@ -29,6 +31,8 @@ void	rb(int *b, int top_b)
 {
 	int	p;
 
+	if (top_b < 1)
+		return ;
 	p = b[top_b];
 	while (0 < top_b)
 	{
@@ -49,6 +53,8 @@ void	rra(int *a, int top_a)
 	int	i;
 	int	p;
 
+	if (top_a < 1)
+		return ;
 	p = a[0];
 	i = 0;
 	while (i <= top_a - 1)
@@ -64,6 +70,8 @@ void	rrb(int *b, int top_b)
 	int	i;
 	int	p;
 
+	if (top_b < 1)
+		return ;
 	p = b[0];
 	i = 0;
 	while (i <= top_b - 1)

@@ -12,12 +12,6 @@
 
 #include "push_swap_bonus.h"
 
-void	ko(void)
-{
-	write(1, "ko\n", 3);
-	exit (1);
-}
-
 int	check_if_sort(int *tab, int len)
 {
 	int	i;
@@ -32,30 +26,47 @@ int	check_if_sort(int *tab, int len)
 	return (1);
 }
 
-void	parcing(t_node *node, char **av, int ac)
+static char	**split_args(char **av)
 {
-	int		i;
-	char	*ptr;
+	char	*joined;
 	char	**tab;
-	int		*tmp;
+	int		i;
 
-	if (ac < 2)
-		my_exit("");
-	if_av_has_alpha(av);
+	joined = NULL;
 	i = 1;
-	ptr = NULL;
 	while (av[i])
 	{
-		ptr = ft_strjoin(ptr, av[i]);
-		ptr = ft_strjoin(ptr, " ");
-		i++;
+		joined = ft_strjoin(joined, av[i++]);
+		joined = ft_strjoin(joined, " ");
 	}
-	tab = ft_split(ptr, ' ');
-	tmp = (int *)malloc((ac - 1) * sizeof(int));
+	tab = ft_split(joined, ' ');
+	free(joined);
+	return (tab);
+}
+
+int	parcing(t_node *node, char **av)
+{
+	char	**tab;
+	int		*tmp;
+	int		count;
+	int		i;
+
+	tab = split_args(av);
+	count = 0;
+	while (tab && tab[count])
+		count++;
+	if (count == 0)
+		my_exit("Error\n");
+	tmp = (int *)malloc(count * sizeof(int));
 	if (!tmp)
-		exit (1);
+		exit(1);
 	put_to_tmp(tab, tmp);
-	if_has_deplcate(tmp, ac);
-	node->a = tab_index(tmp, ac -1);
-	inverse_tab(node, ac);
+	if_has_deplcate(tmp, count);
+	node->a = tab_index(tmp, count);
+	inverse_tab(node, count);
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
+	return (count);
 }
