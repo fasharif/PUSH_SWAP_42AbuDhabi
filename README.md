@@ -94,3 +94,7 @@ writes the table above into each run's summary.
 
 Instruction counts were checked during development with
 [lmalki-h/push_swap_tester](https://github.com/lmalki-h/push_swap_tester).
+
+## License
+
+[MIT](LICENSE)
