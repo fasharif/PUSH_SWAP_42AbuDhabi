@@ -108,7 +108,8 @@ void	push_sorted_to_a(t_stab *var)
 		i = 0;
 		mini_boucle_sorta(var, &i, j);
 		pa(var->tab_a, &var->top_a, var->tab_b, &var->top_b);
-		j = var->tab_b[var->top_b];
+		if (var->top_b >= 0)
+			j = var->tab_b[var->top_b];
 		k--;
 	}
 }
