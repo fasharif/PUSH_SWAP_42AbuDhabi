@@ -11,47 +11,47 @@
 # **************************************************************************** #
 
 NAME = push_swap
-
 NAME_B = checker
 
-src = mandatory/utils.c mandatory/sort_fct_r.c mandatory/sort_fct.c\
-		mandatory/main.c mandatory/check_arg.c mandatory/index_pushb.c\
-		mandatory/sort_small.c mandatory/util_2.c mandatory/utils_3.c
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-src_b = bonus/bonus_sort1.c bonus/checker.c bonus/bonus_sort2.c\
-		bonus/bonus_sort3.c bonus/bonus_utils.c  bonus/bonus_utils2.c\
-		bonus/bonus_utils3.c bonus/bonus_utils4.c bonus/split.c
+SRC = mandatory/main.c mandatory/check_arg.c mandatory/index_pushb.c \
+	mandatory/sort_fct.c mandatory/sort_fct_r.c mandatory/sort_small.c \
+	mandatory/util_2.c mandatory/utils.c mandatory/utils_3.c
 
-obj = $(src:.c=.o)
+SRC_B = bonus/checker.c bonus/split.c bonus/bonus_sort1.c bonus/bonus_sort2.c \
+	bonus/bonus_sort3.c bonus/bonus_utils.c bonus/bonus_utils2.c \
+	bonus/bonus_utils3.c bonus/bonus_utils4.c
 
-obj_b = $(src_b:.c=.o)
-
-flags = -Wall -Wextra -Werror
+OBJ = $(SRC:.c=.o)
+OBJ_B = $(SRC_B:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(src) $(obj) mandatory/push_swap.h
-	@gcc $(flags) $(src) -o $(NAME)
-	@echo ------Compiled Mondatory part-------
-
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ) -o $(NAME)
 
 bonus: $(NAME_B)
 
-$(NAME_B): $(src_b) $(obj_b) bonus/push_swap_bonus.h
-	@gcc $(flags) $(src_b) -o $(NAME_B)
-	@echo ------Compiled Bonus part-------
+$(NAME_B): $(OBJ_B)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(OBJ_B) -o $(NAME_B)
 
-%.o: %.c
-	@gcc -c $< -o $@
-	@echo ------Compiling Objects files-------
+mandatory/%.o: mandatory/%.c mandatory/push_swap.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+bonus/%.o: bonus/%.c bonus/push_swap_bonus.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+test: all bonus
+	python3 tests/test_push_swap.py
 
 clean:
-	@rm -rf $(obj) $(obj_b)
-	@echo ------Deleting Objects Files-------
+	rm -f $(OBJ) $(OBJ_B)
 
 fclean: clean
-	@rm -rf $(NAME) $(NAME_B)
-	@echo ------Deleting Output Files-------
+	rm -f $(NAME) $(NAME_B)
 
 re: fclean all
-	
+
+.PHONY: all bonus test clean fclean re
